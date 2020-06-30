@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static '/iss.css' %}" rel="stylesheet" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<div id="center">
+    <h1>SDES Encryption and Decryption</h1>
+    <br>
+    <body>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.K.label_tag }}
+        {{ form.K}}
+        {{ form.PT.label_tag}}
+        {{ form.PT}}           
+        <div id="checkbox" style="white-space: nowrap" onclick="myFunction()">            
+            <label style="top:100%;position: absolute;padding:0px 100px 0px 0px" >
+            <input for="checkbox" type="checkbox" id="myCheck" /> Fill Tables?</label>
+        </div> 
+        <div id="text" style="display:none">
+            {{ form.P10.label_tag}}
+            {{ form.P10}}
+            {{ form.P8.label_tag}}
+            {{ form.P8}}
+            {{ form.P4.label_tag}}
+            {{ form.P4}}
+            {{ form.IP.label_tag}}
+            {{ form.IP}}
+            {{ form.IPi.label_tag}}
+            {{ form.IP}}
+            {{ form.E.label_tag}}
+            {{ form.E}}
+            {{ form.S0.label_tag}}
+            {{ form.S0}}
+            {{ form.S1.label_tag}}
+            {{ form.S1}}
+            
+        </div>
+        <br>
+        <div id="buttons">
+            <input class="button" type="submit" value="Encrypt" name="encode">
+            <input class="button" type="submit" value="Decrypt" name="decode">
+        </div>
+    </form>
+   
+    {% for post in posts %}
+        <p>The Cipher text for the plaintext {{  post.PT|stringformat:"08d"  }} and key {{ post.K|stringformat:"010d" }} is: {{ post.O|stringformat:"08d" }}</p>&nbsp;
+
+    {% endfor %}
+        <script>
+            function myFunction() {
+              var checkBox = document.getElementById("myCheck");
+              var text = document.getElementById("text");
+              if (checkBox.checked == true){
+                text.style.display = "block";
+              } else {
+                 text.style.display = "none";
+              }
+            }
+        </script>
+    
+    </body>
+</div>
+</html>
